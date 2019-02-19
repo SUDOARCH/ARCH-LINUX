@@ -1,0 +1,58 @@
+﻿Installing Arch Linux [UEFI] Guide - GitHub
+Установка в режиме UEFI + SWAP
+
+--- Обновление системных часов и создание разделов
+timedatectl set-ntp true
+gdisk/cfdisk
+--- Форматирование разделов
+mkfs.vfat /dev/sda1
+mkfs.ext4 /dev/sda2
+mkswap /dev/sda3
+--- Монтирование разделов
+mount /dev/sda2 /mnt
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
+--- Настройка сервера и установка базовых пакетов + DE
+nano /etc/pacman.d/mirrorlist
+pacstrap /mnt base base-devel xorg plasma sddm konsole dolphin chromium intel-ucode
+genfstab -U /mnt >> /mnt/etc/fstab
+
+=== ARCH-CHROOT STATE ===
+
+--- Начало использования ArchChroot
+arch-chroot /mnt
+--- Настройка времени и языка системы в ArchChroot
+ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+hwclock --systohc
+nano /etc/locale.gen
+locale-gen
+nano /etc/locale.conf
+|LANG=ru_RU.UTF-8
+nano /etc/hostname
+passwd
+--- Установка загрузчика
+bootctl --path=/boot install
+--- Настройка загрузчика
+nano /boot/loader/loader.conf
+|default arch
+nano /boot/loader/entries/arch.conf
+|title arch
+|linux /vmlinuz-linux
+|initrd /intel-ucode.img
+|initrd /initramfs-linux.img
+|options root=/dev/sda2 rw
+--- PRE-INSTALL COMPLETED
+
+=== POST-INSTALL STATE ===
+Continue with arch-chroot...
+
+--- Создание пользователя и пароля, разрешение использовать SUDO
+useradd -m -g users -G wheel -s /bin/bash cosmic
+passwd cosmic
+nano /etc/sudoers
+--- Запуск сервисов
+systemctl enable sddm.service
+systemctl enable dhcpcd.service
+systemctl enable NetworkManager.service
+exit
+reboot
