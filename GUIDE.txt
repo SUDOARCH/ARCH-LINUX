@@ -54,4 +54,5 @@ systemctl enable gdm.service
 systemctl enable dhcpcd.service
 systemctl enable NetworkManager.service
 exit
+umount -R /mnt
 reboot
