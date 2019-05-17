@@ -14,7 +14,7 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 --- Настройка сервера и установка базовых пакетов + DE
 nano /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel xorg plasma sddm konsole dolphin chromium intel-ucode
+pacstrap /mnt base base-devel gnome chromium intel-ucode
 genfstab -U /mnt >> /mnt/etc/fstab
 
 === ARCH-CHROOT STATE ===
@@ -29,7 +29,6 @@ locale-gen
 nano /etc/locale.conf
 |LANG=ru_RU.UTF-8
 nano /etc/hostname
-passwd
 --- Установка загрузчика
 bootctl --path=/boot install
 --- Настройка загрузчика
@@ -51,7 +50,7 @@ useradd -m -g users -G wheel -s /bin/bash cosmic
 passwd cosmic
 nano /etc/sudoers
 --- Запуск сервисов
-systemctl enable sddm.service
+systemctl enable gdm.service
 systemctl enable dhcpcd.service
 systemctl enable NetworkManager.service
 exit
