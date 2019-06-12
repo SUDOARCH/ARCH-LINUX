@@ -1,4 +1,4 @@
-﻿Installing Arch Linux [UEFI] Guide - GitHub
+Installing Arch Linux [UEFI] Guide - GitHub
 Установка в режиме UEFI + SWAP
 
 --- Обновление системных часов и создание разделов
@@ -14,7 +14,7 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 --- Настройка сервера и установка базовых пакетов + DE
 nano /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel gnome chromium intel-ucode
+pacstrap /mnt base sudo gnome chromium intel-ucode
 genfstab -U /mnt >> /mnt/etc/fstab
 
 === ARCH-CHROOT STATE ===
@@ -32,10 +32,8 @@ nano /etc/hostname
 --- Установка загрузчика
 bootctl --path=/boot install
 --- Настройка загрузчика
-nano /boot/loader/loader.conf
-|default arch
 nano /boot/loader/entries/arch.conf
-|title arch
+|title ArchLinux
 |linux /vmlinuz-linux
 |initrd /intel-ucode.img
 |initrd /initramfs-linux.img
