@@ -3,7 +3,7 @@ Installing Arch Linux [UEFI] Guide - GitHub
 
 --- Обновление системных часов и создание разделов
 timedatectl set-ntp true
-gdisk/cfdisk
+fdisk/cfdisk
 --- Форматирование разделов
 mkfs.vfat /dev/sda1
 mkfs.ext4 /dev/sda2
@@ -14,7 +14,7 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 --- Настройка сервера и установка базовых пакетов + DE
 nano /etc/pacman.d/mirrorlist
-pacstrap /mnt base sudo gnome chromium intel-ucode
+pacstrap /mnt base base-devel gnome chromium intel-ucode vulkan-intel
 genfstab -U /mnt >> /mnt/etc/fstab
 
 === ARCH-CHROOT STATE ===
