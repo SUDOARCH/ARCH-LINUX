@@ -14,7 +14,7 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 --- Настройка сервера и установка базовых пакетов + DE
 nano /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel gnome chromium intel-ucode vulkan-intel
+pacstrap /mnt base sudo gnome chromium intel-ucode vulkan-intel
 genfstab -U /mnt >> /mnt/etc/fstab
 
 === ARCH-CHROOT STATE ===
@@ -44,7 +44,7 @@ nano /boot/loader/entries/arch.conf
 Continue with arch-chroot...
 
 --- Создание пользователя и пароля, разрешение использовать SUDO
-useradd -m -g users -G wheel -s /bin/bash cosmic
+useradd -m -g users -G wheel cosmic
 passwd cosmic
 nano /etc/sudoers
 --- Запуск сервисов
