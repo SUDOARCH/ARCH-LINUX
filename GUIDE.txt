@@ -44,7 +44,7 @@ nano /boot/loader/entries/arch.conf
 Continue with arch-chroot...
 
 --- Создание пользователя и пароля, разрешение использовать SUDO
-useradd -m cosmic
+useradd -m -g users -G wheel cosmic
 passwd cosmic
 nano /etc/sudoers
 --- Запуск сервисов
