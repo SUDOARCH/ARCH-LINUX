@@ -14,7 +14,7 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 --- Настройка сервера и установка базовых пакетов + DE
 nano /etc/pacman.d/mirrorlist
-pacstrap /mnt base sudo gnome chromium intel-ucode vulkan-intel
+pacstrap /mnt base linux linux-firmware sudo gnome chromium intel-ucode vulkan-intel
 genfstab -U /mnt >> /mnt/etc/fstab
 
 === ARCH-CHROOT STATE ===
